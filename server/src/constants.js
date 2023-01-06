@@ -7,19 +7,20 @@ const CONNECTION_URI = `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_P
 
 // ------------- SETTINGS -----------//
 
+
 const SESSION_SETTINGS = {
     secret: 'some secret',
-    cookie: {maxAge: 1000 * 60 * 60 * 24},
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
     resave: false,
     saveUninitialized: false
 }
 
 const MONGO_CLIENT_SETTINGS =
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        serverApi: ServerApiVersion.v1
-    }
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1
+}
 
 
 module.exports = {
