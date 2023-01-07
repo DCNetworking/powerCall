@@ -1,9 +1,6 @@
-const usersModel = require('../models/user.model');
+const UsersModel = require('../models/user.model');
 const { userSchema, usersRolesSchema } = require('../mongo_schemas');
 const mongoose = require('mongoose');
-function getAllUsers(req, res) {
-    return res.status(200).json(usersModel);
-}
 
 async function checkUser(username, password) {
     const pcUsers = await mongoose.model('users', userSchema)
@@ -35,7 +32,7 @@ function loginUser(req, res, store) {
                 if (!auth.active)
                     return res.status(403).json({ msg: 'User has been deactivated, please contact with administrator' })
                 if (auth !== null) {
-                    const userData = new usersModel(auth._doc).set();
+                    const userData = new UsersModel(auth._doc).set();
                     getUserRoles(auth.uid).then((profileData) => {
                         req.session.userProfile = userData;
                         req.session.userProjectProfile = profileData?.access;

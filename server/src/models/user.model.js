@@ -1,8 +1,5 @@
 
-
-
-
-class UserData {
+class UsersModel {
     constructor(db_data) {
         this.db_data = db_data;
     }
@@ -14,7 +11,7 @@ class UserData {
 
 }
 
-module.exports = UserData;
+module.exports = UsersModel;
 
 
 
