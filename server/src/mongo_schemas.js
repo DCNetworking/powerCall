@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
             full_address: { type: String, required: false }
         },
     },
-    active: { type: Boolean, required: true }
+    active: { type: Boolean, required: true, default: true }
 })
 
 
