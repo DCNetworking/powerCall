@@ -1,25 +1,28 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 
+//
+// User Schema --------------------------------------------------------------------------------------------------
+//
 const userSchema = new mongoose.Schema({
+    _id: ObjectId,
     uid: {
         type: Number,
         required: true,
     },
-    comapny_mail: {
+    company_mail: {
         type: String,
         required: true,
         lowercase: true,
-        match: /^[a-zA-Z0-9_.+]+(?<!^[0-9]*)@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     },
     private_mail: {
         type: String,
         required: false,
         lowercase: true,
-        match: /^[a-zA-Z0-9_.+]+(?<!^[0-9]*)@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
     },
     phones: {
-        private: { type: Number, required: true, minlength: 9, maxlength: 12 },
-        comapny: { type: Number, required: false, minlength: 9, maxlength: 12 },
+        type: Object,
+        required: true,
     },
     username: {
         type: String,
@@ -45,10 +48,28 @@ const userSchema = new mongoose.Schema({
         },
     },
     active: { type: Boolean, required: true, default: true }
+}, { collection: 'users' })
+//
+// User roles Schema --------------------------------------------------------------------------------------------------
+//
+const usersRolesSchema = mongoose.Schema({
+    uid: { type: Number, required: true },
+    last_update_time: { type: Date, required: true },
+    access: {
+        projects: [{
+            pid: { type: Number, required: true },
+            active: { type: Boolean, required: true },
+            permissions: {
+                roleID: { type: Array, required: true },
+                appAccessIDS: { type: Array, required: true },
+            }
+        }]
+    },
+    perm_id: { type: Number, required: true }
+
 })
 
 
-
 module.exports = {
-    userSchema
+    userSchema, usersRolesSchema
 }

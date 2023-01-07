@@ -17,9 +17,9 @@ const SESSION_SETTINGS = {
 
 const MONGO_CLIENT_SETTINGS =
 {
+    dbName: 'powercall',
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverApi: ServerApiVersion.v1
 }
 
 

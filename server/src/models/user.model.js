@@ -3,4 +3,3 @@ const { userSchema } = require('../mongo_schemas');
 
 
 
-module.exports = userModel;
