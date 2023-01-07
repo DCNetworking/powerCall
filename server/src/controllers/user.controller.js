@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 function getAllUsers(req, res) {
     return res.status(200).json(usersModel);
 }
+
 async function checkUser(username, password) {
     const pcUsers = await mongoose.model('users', userSchema)
     const isUserExist = await pcUsers.findOne({
@@ -28,12 +29,15 @@ function loginUser(req, res, store) {
             res.json(req.session);
         } else {
             checkUser(username, password).then((auth) => {
+
                 if (auth === null)
                     return res.status(403).json({ msg: 'User does not exist', OK: false })
                 if (!auth.active)
                     return res.status(403).json({ msg: 'User has been deactivated, please contact with administrator' })
                 if (auth !== null) {
+                    const userData = new usersModel(auth._doc).set();
                     getUserRoles(auth.uid).then((profileData) => {
+                        req.session.userProfile = userData;
                         req.session.userProjectProfile = profileData?.access;
                         req.session.save();
                     }).then(() => {

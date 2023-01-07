@@ -66,8 +66,7 @@ const usersRolesSchema = mongoose.Schema({
         }]
     },
     perm_id: { type: Number, required: true }
-
-})
+}, { collection: 'users_roles' })
 
 
 module.exports = {
