@@ -7,23 +7,16 @@ const {
     CONNECT_STATUS_STABLE
 } = require("./src/constants");
 
-const ConnectDB = new Promise((res, rej) => {
-    try {
-        mongoose.connect(CONNECTION_URI, MONGO_CLIENT_SETTINGS)
-        res(mongoose.connection)
-    } catch (err) {
-        rej(err)
-    }
-    res()
+mongoose.connection.on('error', (err) => {
+    console.log(err);
 })
 
 const server = http.createServer(app)
 const { userSchema } = require('./src/mongo_schemas');
 async function startServer() {
-    ConnectDB.then((data) => {
-        server.listen(PORT, () => {
-            console.log(`Server is listening on port ${PORT}`);
-        })
+    await mongoose.connect(CONNECTION_URI, MONGO_CLIENT_SETTINGS)
+    server.listen(PORT, () => {
+        console.log(`Server is listening on port ${PORT}`);
     })
 }
 

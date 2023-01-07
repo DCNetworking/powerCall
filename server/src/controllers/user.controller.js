@@ -55,5 +55,5 @@ function loginUser(req, res, store) {
 }
 
 module.exports = {
-    getAllUsers, loginUser
+    loginUser
 }

@@ -28,7 +28,6 @@ app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use('/user', userRoute)
 app.post('/login', (req, res) => {
     userController.loginUser(req, res, store)
