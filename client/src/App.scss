@@ -1,0 +1,51 @@
+.App {
+  text-align: center;
+}
+
+
+.main_page-container{
+  display: flex;
+  width:100vw;
+  height: 100vh;
+}
+.main_page--left_side-container{
+  padding: 1rem;
+  display: grid;
+  grid-area: auto;
+  width:20%;
+  min-width: 20rem;
+  place-items: center;
+  background-color: rgb(104, 197, 99);
+}
+.main_page--left_side_login-container{
+  display: grid;
+  gap:1.2em;
+  width:100%;
+  height: 30%;
+  align-items: center;
+  input[type=text],
+  input[type=password]{
+    height: 105%;
+    border:none;
+    padding: 0.5em;
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    color:white;
+    ::placeholder{
+      color: white;
+    }
+  }
+  input[type=submit]{
+    height: 120%;
+    padding: 0.5em;
+    border-radius: 1em;
+    background-color: transparent;
+    border: 1px solid white;
+    color:white;
+    width: 50%;
+    justify-self: center;
+  }
+  .log_in-info{
+    color: white;
+  }
+}

@@ -3,16 +3,16 @@ const http = require('http');
 const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 const {
-    SESSION_SETTINGS, MONGO_CLIENT_SETTINGS, CONNECTION_URI, CONNECT_ERROR_500, CONNECT_SUCCESS_MSG,
-    CONNECT_STATUS_STABLE
+    MONGO_CLIENT_SETTINGS, CONNECTION_URI, CONNECT_ERROR_500, CONNECT_SUCCESS_MSG,
 } = require("./src/constants");
-
 mongoose.connection.on('error', (err) => {
-    console.log(err);
+    console.log(CONNECT_ERROR_500);
+    console.error(err)
 })
-
+mongoose.connection.once('open', () => {
+    console.log(CONNECT_SUCCESS_MSG);
+})
 const server = http.createServer(app)
-const { userSchema } = require('./src/mongo_schemas');
 async function startServer() {
     await mongoose.connect(CONNECTION_URI, MONGO_CLIENT_SETTINGS)
     server.listen(PORT, () => {

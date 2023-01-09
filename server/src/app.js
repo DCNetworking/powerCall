@@ -11,8 +11,7 @@ const app = express();
 const bcrypt = require('bcrypt');
 
 const {
-    SESSION_SETTINGS, MONGO_CLIENT_SETTINGS, CONNECTION_URI, CONNECT_ERROR_500, CONNECT_SUCCESS_MSG,
-    CONNECT_STATUS_STABLE
+    SESSION_SETTINGS
 } = require("./constants");
 
 app.use(session({
@@ -24,14 +23,26 @@ process.on("uncaughtException", (err) => {
     process.exit(1);
 })
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/user', userRoute)
+app.get('/', (req, res) => {
+    res.status(200).json({
+        msg: 'Connection stable'
+    })
+})
 app.post('/login', (req, res) => {
     userController.loginUser(req, res, store)
 })
+app.get('/session', (req, res) => {
+    if (store.sessions[req.sessionID] !== undefined)
+        return res.status(200).json(JSON.parse(store.sessions[req.sessionID]));
+    return res.status(403).json({ message: 'Session does not exist', OK: false })
+})
+
 
 module.exports = { app };
 

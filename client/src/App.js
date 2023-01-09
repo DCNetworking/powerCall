@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.scss';
+import { useSession } from './hooks/useSession';
+import { useMemo, useEffect, useState } from 'react';
+import axios from 'axios';
+import { BACKEND_HTTP } from './constants';
+import MainPage from './components/pages/MainPage';
 function App() {
+  const [userProfile, setUserProfile] = useState({});
+  // useEffect(() => {
+  //   axios.post(BACKEND_HTTP + '/login', { username: 'damicab214', password: '123456' }).then((data) => {
+  //     setUserProfile(data.data.sessionData.userProfile.company_email)
+  //   })
+  // }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MainPage />
     </div>
   );
 }
